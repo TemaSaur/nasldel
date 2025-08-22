@@ -48,6 +48,8 @@ def fixrecord(record) -> dict:
 
 
 def do(df):
+	i = 1
+	length = df.shape[0]
 	for line in df.index:
 		row = df.iloc[line]
 		name = " ".join(row[k] for k in ('Фамилия', 'Имя', 'Отчество'))
@@ -64,6 +66,8 @@ def do(df):
 			frecord = fixrecord(record)
 			assert isinstance(frecord, dict), 'с сайта вернулось непонятно что'
 			data.append(frecord)
+		print("{}\t{}%".format(i, (i * 10000 // length) / 100))
+		i += 1
 
 if __name__ == '__main__':
 	if len(sys.argv) >= 2:
