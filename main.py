@@ -29,7 +29,10 @@ def find(name, birth_date):
 def get_output_path():
 	with open('./config.txt') as f:
 		path = f.readline().strip()
-		os.makedirs(path)
+		try:
+			os.makedirs(path)
+		except FileExistsError:
+			pass
 		return path
 
 
