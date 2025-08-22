@@ -63,7 +63,7 @@ def do(df):
 		for record in datum['records']:
 			frecord = fixrecord(record)
 			assert isinstance(frecord, dict), 'с сайта вернулось непонятно что'
-			data.append({'ФИО': name} | frecord)
+			data.append(frecord)
 
 if __name__ == '__main__':
 	if len(sys.argv) >= 2:
