@@ -11,14 +11,19 @@ URL = 'https://notariat.ru/api/probate-cases'
 data = []
 
 
-def find(name, birth_date):
-	try:
-		response = requests.post(URL, json={'name': name, 'birth_date': birth_date, 'death_date': 'NULL'})
-		return response.json()
-	except Exception:
-		print('запрос не работает капец')
-		traceback.print_exc()
-	return None
+def find(name, birth_date, retries = 2):
+	for i in range(1 + retries):
+		try:
+			response = requests.post(URL, json={'name': name, 'birth_date': birth_date, 'death_date': 'NULL'})
+			return response.json()
+		except Exception:
+			print('запрос не работает капец')
+			traceback.print_exc()
+
+			if i < retries:
+				print('щас пробую снова')
+	else:
+		return None
 
 
 
