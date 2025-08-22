@@ -11,9 +11,9 @@ URL = 'https://notariat.ru/api/probate-cases'
 data = []
 
 
-def find(name, birth_date, death_date):
+def find(name, birth_date):
 	try:
-		response = requests.post(URL, json={'name': name, 'birth_date': birth_date, 'death_date': death_date})
+		response = requests.post(URL, json={'name': name, 'birth_date': birth_date, 'death_date': 'NULL'})
 		return response.json()
 	except Exception:
 		print('запрос не работает капец')
@@ -49,9 +49,8 @@ def do(df):
 		row = df.iloc[line]
 		name = " ".join(row[k] for k in ('Фамилия', 'Имя', 'Отчество'))
 		birth_date = fdate(row['Рождение'])
-		birth_death = fdate(row['Смерть'])
 
-		datum = find(name, birth_date, birth_death)
+		datum = find(name, birth_date)
 
 		if datum is None:
 			continue
